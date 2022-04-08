@@ -45,9 +45,7 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(R.layout.fragment_auth) {
                             context?.toast(getString(it.message))
                         }
                         AuthState.Init -> {}
-                        AuthState.Loading -> {
-                            showLoading()
-                        }
+                        AuthState.Loading -> showLoading()
                         is AuthState.Success -> {
                             hideLoading()
                             authViewModel.dispatchIntent(

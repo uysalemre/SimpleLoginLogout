@@ -42,15 +42,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
                             )
                         }
                         ProfileState.Init -> {}
-                        ProfileState.Loading -> {
-                            showLoading()
-                        }
+                        ProfileState.Loading -> showLoading()
                         is ProfileState.Success -> {
                             hideLoading()
                             binding.profileModel = it.result
                         }
                         ProfileState.UnAuthorizedAccess -> {
-                            context?.toast(getString(R.string.auth_user_error))
+                            hideLoading()
+                            context?.toast(getString(R.string.err_http_auth))
                             viewModel.dispatchIntent(ProfileIntent.LogoutUser)
                         }
                         ProfileState.Logout -> {

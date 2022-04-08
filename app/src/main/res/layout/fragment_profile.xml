@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="profileViewModel"
+            type="com.eu.simpleloginlogout.profile.viewmodel.ProfileViewModel" />
+
+        <variable
+            name="profileModel"
+            type="com.eu.simpleloginlogout.profile.repository.data.ProfileResponseModel" />
+    </data>
+
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:onRefresh="@{profileViewModel}"
+        app:setRefreshStatus="@{profileViewModel.isRefreshing}"
+        tools:context=".profile.ProfileFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/ivUserPhoto"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:loadImage="@{profileModel.image}"
+                tools:src="@drawable/ic_image_background" />
+
+            <TextView
+                android:id="@+id/tvUserNameSurname"
+                style="@style/ProfileText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@{profileModel.firstName == null ? `` : profileModel.firstName +` ` + profileModel.lastName == null ? `` : profileModel.lastName}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivUserPhoto"
+                tools:text="Name Surname" />
+
+            <TextView
+                android:id="@+id/tvUserAddress"
+                style="@style/ProfileText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@{profileModel.address}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvUserNameSurname"
+                tools:text="Istanbul, Turkey" />
+
+            <TextView
+                android:id="@+id/tvUserPhoneNumber"
+                style="@style/ProfileText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{profileModel.phone}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvUserAddress"
+                tools:text="0538XXXXXXX" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>

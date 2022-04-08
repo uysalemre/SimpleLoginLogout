@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SimpleLoginLogout</string>
+    <string name="auth_logo">https://placeimg.com/80/80/tech</string>
+    <string name="auth_username_hint">Username</string>
+    <string name="auth_password_hint">Password</string>
+    <string name="auth_submit">Submit</string>
+    <string name="auth_user_error">Please enter a valid %1$s</string>
+    <string name="err_http_internet">Please connect to Internet</string>
+    <string name="err_http_unknown">Unknown connection issue</string>
+    <string name="err_http_auth">Please login to reach your profile</string>
+    <string name="auth_user_logout">Logout</string>
+    <string name="swipe_refresh">Swipe and refresh to try again.</string>
+</resources>

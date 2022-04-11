@@ -14,7 +14,8 @@
         android:theme="@style/Theme.SimpleLoginLogout">
         <activity
             android:name=".core.activity.view.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

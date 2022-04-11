@@ -1,4 +1,4 @@
-package com.eu.simpleloginlogout.profile
+package com.eu.simpleloginlogout.profile.view
 
 import android.annotation.SuppressLint
 import android.view.Menu
@@ -70,5 +70,4 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         viewModel.dispatchIntent(ProfileIntent.LogoutUser)
         return super.onOptionsItemSelected(item)
     }
-
 }

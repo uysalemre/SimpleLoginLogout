@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         app:onRefresh="@{profileViewModel}"
         app:setRefreshStatus="@{profileViewModel.isRefreshing}"
-        tools:context=".profile.ProfileFragment">
+        tools:context=".profile.view.ProfileFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

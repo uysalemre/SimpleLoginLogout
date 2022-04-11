@@ -22,8 +22,7 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val repository: ProfileRepository,
     private val dataStore: IDataStore
-) :
-    ViewModel() {
+) : ViewModel() {
     private val _uiState: MutableStateFlow<ProfileState> = MutableStateFlow(ProfileState.Init)
     val uiState: StateFlow<ProfileState> get() = _uiState
 

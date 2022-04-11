@@ -54,6 +54,9 @@ fun submitForm(
     }
 }
 
+/**
+ * sets refreshing status of swipe refresh layout
+ */
 @BindingAdapter("setRefreshStatus")
 fun setRefreshStatus(
     view: SwipeRefreshLayout,
@@ -62,6 +65,9 @@ fun setRefreshStatus(
     view.isRefreshing = status
 }
 
+/**
+ * triggers refresh function when refreshing
+ */
 @BindingAdapter("onRefresh")
 fun onRefresh(
     view: SwipeRefreshLayout,

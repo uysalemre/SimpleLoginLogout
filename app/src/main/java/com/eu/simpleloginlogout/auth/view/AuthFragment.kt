@@ -10,10 +10,12 @@ import com.eu.simpleloginlogout.auth.viewmodel.AuthViewModel
 import com.eu.simpleloginlogout.auth.viewmodel.intent.AuthIntent
 import com.eu.simpleloginlogout.auth.viewmodel.state.AuthState
 import com.eu.simpleloginlogout.base.BaseFragment
+import com.eu.simpleloginlogout.core.persistance.IDataStore
 import com.eu.simpleloginlogout.core.ui.toast
 import com.eu.simpleloginlogout.databinding.FragmentAuthBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * @author Emre UYSAL
@@ -23,18 +25,21 @@ import kotlinx.coroutines.launch
 class AuthFragment : BaseFragment<FragmentAuthBinding>(R.layout.fragment_auth) {
     private val authViewModel by viewModels<AuthViewModel>()
 
+    @Inject
+    lateinit var dataStore: IDataStore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        registerObservingUIState()
-        authViewModel.dispatchIntent(AuthIntent.CheckUserDataStore)
+        checkUserLoginStat()
     }
 
     override fun onViewCreationCompleted() {
         binding.viewModel = authViewModel
+        registerObservingUIState()
     }
 
     private fun registerObservingUIState() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 authViewModel.uiState.collect {
                     when (it) {
@@ -58,9 +63,25 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(R.layout.fragment_auth) {
 
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 authViewModel.navigationEvent.collect {
-                    navController.navigate(AuthFragmentDirections.actionAuthFragmentToProfileFragment())
+                    navigateToProfile()
                 }
             }
         }
     }
+
+    private fun checkUserLoginStat() {
+        lifecycleScope.launch {
+            dataStore.getUserFromPreferencesStore().collect {
+                when {
+                    !it.token.isNullOrEmpty() && !it.refreshToken.isNullOrEmpty() -> {
+                        navigateToProfile()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun navigateToProfile() =
+        navController.navigate(AuthFragmentDirections.actionAuthFragmentToProfileFragment())
+
 }

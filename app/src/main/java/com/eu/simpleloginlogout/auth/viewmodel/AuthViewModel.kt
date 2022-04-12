@@ -50,17 +50,6 @@ class AuthViewModel @Inject constructor(
                     _navigationEvent.send(true)
                 }
             }
-            is AuthIntent.CheckUserDataStore -> {
-                viewModelScope.launch {
-                    dataStore.getUserFromPreferencesStore().collect {
-                        when {
-                            !it.token.isNullOrEmpty() && !it.refreshToken.isNullOrEmpty() -> {
-                                _navigationEvent.send(true)
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.eu.simpleloginlogout.profile.view
 
-import android.annotation.SuppressLint
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -26,12 +25,11 @@ import kotlinx.coroutines.launch
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
     private val viewModel: ProfileViewModel by viewModels()
 
-    @SuppressLint("UnsafeRepeatOnLifecycleDetector")
     override fun onViewCreationCompleted() {
         setHasOptionsMenu(true)
         binding.profileViewModel = viewModel
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {
                     when (it) {
                         is ProfileState.Error -> {

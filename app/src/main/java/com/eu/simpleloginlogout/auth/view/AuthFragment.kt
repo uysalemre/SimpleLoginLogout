@@ -1,6 +1,5 @@
 package com.eu.simpleloginlogout.auth.view
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -34,10 +33,9 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(R.layout.fragment_auth) {
         binding.viewModel = authViewModel
     }
 
-    @SuppressLint("UnsafeRepeatOnLifecycleDetector")
     private fun registerObservingUIState() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 authViewModel.uiState.collect {
                     when (it) {
                         is AuthState.Error -> {
@@ -57,10 +55,8 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(R.layout.fragment_auth) {
                     }
                 }
             }
-        }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 authViewModel.navigationEvent.collect {
                     navController.navigate(AuthFragmentDirections.actionAuthFragmentToProfileFragment())
                 }

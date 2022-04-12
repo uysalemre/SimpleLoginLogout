@@ -73,7 +73,7 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(R.layout.fragment_auth) {
         lifecycleScope.launch {
             dataStore.getUserFromPreferencesStore().collect {
                 when {
-                    !it.token.isNullOrEmpty() && !it.refreshToken.isNullOrEmpty() -> {
+                    it.token.isNotEmpty() && it.refreshToken.isNotEmpty() -> {
                         navigateToProfile()
                     }
                 }

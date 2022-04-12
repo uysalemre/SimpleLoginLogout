@@ -8,22 +8,21 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.components.ViewModelComponent
 import javax.inject.Singleton
 
 /**
  * @author Emre UYSAL
- * Activity scoped module
+ * ViewModel scoped module
  * provides repositories
  */
 @Module
-@InstallIn(ActivityComponent::class)
-object ActivityModule {
+@InstallIn(ViewModelComponent::class)
+object ViewModelModule {
 
     @Provides
-    @Singleton
     fun provideAuthRepository(services: AuthServices) = AuthRepository(services)
 
     @Provides
-    @Singleton
     fun provideProfileRepository(services: ProfileServices) = ProfileRepository(services)
 }
